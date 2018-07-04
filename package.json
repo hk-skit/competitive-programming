@@ -1,0 +1,34 @@
+{
+  "name": "@username/competitive-programming",
+  "version": "1.0.0",
+  "description": "Collection of random problems and algorithms for competitive programming.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.1.0",
+    "should": "^13.2.0",
+    "sinon": "^4.4.2"
+  },
+  "keywords": [
+    "dsa",
+    "callback",
+    "algorithms",
+    "data-structures",
+    "binary-search",
+    "sorting",
+    "search"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hk-skit/competitive-programming.git"
+  },
+  "author": "Hitesh Kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hk-skit/competitive-programming/issues"
+  },
+  "homepage": "https://github.com/hk-skit/competitive-programming#readme"
+}
