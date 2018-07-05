@@ -10,7 +10,7 @@ class Stack {
    */
   push(item) {
     if (this._data.length === this._size) {
-      return this.OVERFLOW;
+      throw { message: this.OVERFLOW };
     }
     this._data.push(item);
     return this;
@@ -21,7 +21,7 @@ class Stack {
    */
   pop() {
     if (this.isEmpty()) {
-      throw this.UNDERFLOW;
+      throw { message: this.UNDERFLOW };
     }
     return this._data.pop();
   }
@@ -37,7 +37,7 @@ class Stack {
    * Returns true if the stack isEmpty.
    */
   isEmpty() {
-    return false;
+    return this._data.length === 0;
   }
 
   /**
@@ -53,11 +53,11 @@ class Stack {
    */
   toString(callback) {
     return this._data
-      .map(item => (callback ? callback(item, this) : `${item}`))
+      .map((item) => (callback ? callback(item, this) : `${item}`))
       .toString();
   }
 }
-Stack.prototype.UNDERFLOW = "Stack: UNDERFLOW";
-Stack.prototype.OVERFLOW = "Stack: OVERFLOW";
+Stack.prototype.UNDERFLOW = 'Stack: UNDERFLOW';
+Stack.prototype.OVERFLOW = 'Stack: OVERFLOW';
 
 module.exports = Stack;
