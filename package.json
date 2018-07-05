@@ -1,5 +1,5 @@
 {
-  "name": "@username/competitive-programming",
+  "name": "@hk-skit/competitive-programming",
   "version": "1.0.0",
   "description": "Collection of random problems and algorithms for competitive programming.",
   "main": "index.js",
