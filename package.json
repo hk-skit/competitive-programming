@@ -4,7 +4,8 @@
   "description": "Collection of random problems and algorithms for competitive programming.",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --reporter=html --reporter=text mocha --watch src/**/*.spec.js",
+    "test": "nyc --reporter=html --reporter=text mocha src/**/*.spec.js",
+    "test:dev": "nyc --reporter=html --reporter=text mocha --watch src/**/*.spec.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "devDependencies": {
