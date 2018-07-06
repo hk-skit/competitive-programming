@@ -28,6 +28,12 @@ describe('Stack', () => {
     expect(stack.isEmpty()).to.equal(true);
   });
 
+  it('should give the peek/top of the stack', () => {
+    const stack = new Stack();
+    stack.push(10);
+    expect(stack.peek()).to.equal(10);
+  });
+
   it('should throw stack overflow error.', () => {
     const stack = new Stack(0);
     expect(() => stack.push(0))

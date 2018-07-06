@@ -5,7 +5,7 @@ class LinkedListNode {
   }
 
   toString(callback) {
-    return callback ? callback(this.value) : `${this.data}`;
+    return callback ? callback(this.value) : `${this.value}`;
   }
 }
 module.exports = LinkedListNode;
