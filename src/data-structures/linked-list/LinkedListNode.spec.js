@@ -3,7 +3,7 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const LinkedListNode = require('./LinkedListNode');
 describe('LinkedListNode', () => {
-  it('shold create empty node', () => {
+  it('should create empty node', () => {
     const node = new LinkedListNode();
     expect(node.next).to.equal(null);
     expect(node.value).to.equal(undefined);

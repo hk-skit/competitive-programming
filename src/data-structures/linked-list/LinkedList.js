@@ -1,4 +1,4 @@
-const LinkedListNode = require("./LinkedListNode");
+const LinkedListNode = require('./LinkedListNode');
 
 class LinkedList {
   constructor() {
@@ -76,6 +76,9 @@ class LinkedList {
    * Move tail to the prev element to the tail.
    */
   removeTail() {
+    if (!this.head) {
+      return null;
+    }
     let current = this.head;
     let prev = null;
     while (current.next !== null) {
@@ -97,7 +100,7 @@ class LinkedList {
   find(value) {
     let current = this.head;
     while (current !== null) {
-      if (current.data === value) {
+      if (current.value === value) {
         return current;
       }
       current = current.next;
@@ -120,7 +123,7 @@ class LinkedList {
 
   toString(callback) {
     return this.toArray()
-      .map(node => node.toString(callback))
+      .map((node) => node.toString(callback))
       .toString();
   }
 }
