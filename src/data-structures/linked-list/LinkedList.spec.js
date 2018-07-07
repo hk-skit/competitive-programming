@@ -58,6 +58,14 @@ describe('LinkedList', () => {
       expect(deletedNode).to.deep.equal(null);
       expect(list.toString()).to.equal('');
     });
+
+    it('should return head cause only one element is in list', () => {
+      const list = new LinkedList();
+      list.append(40);
+      const deletedNode = list.remove(40);
+      expect(deletedNode.toString()).to.deep.equal('40');
+      expect(list.toString()).to.equal('');
+    });
   });
 
   describe('LinkedList.removeHead', () => {
@@ -93,6 +101,13 @@ describe('LinkedList', () => {
       const tail = list.removeTail();
       expect(tail.toString()).to.equal('3');
       expect(list.toString()).to.equal('1,2');
+    });
+    it('should return tail when only one element is in list', () => {
+      const list = new LinkedList();
+      list.append(40);
+      const deletedNode = list.removeTail(40);
+      expect(deletedNode.toString()).to.deep.equal('40');
+      expect(list.toString()).to.equal('');
     });
   });
 

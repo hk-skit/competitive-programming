@@ -44,7 +44,7 @@ class Stack {
    * Returns items of the stack as array.
    */
   toArray() {
-    return [...this._data];
+    return [...this._data].reverse();
   }
 
   /**
@@ -52,7 +52,7 @@ class Stack {
    * @param {*} callback
    */
   toString(callback) {
-    return this._data
+    return this.toArray()
       .map((item) => (callback ? callback(item, this) : `${item}`))
       .toString();
   }
