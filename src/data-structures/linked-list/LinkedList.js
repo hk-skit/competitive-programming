@@ -3,6 +3,20 @@ const LinkedListNode = require('./LinkedListNode');
 class LinkedList {
   constructor() {
     this.head = null;
+    this.tail = null;
+  }
+
+  /**
+   *
+   */
+  get length() {
+    let length = 0;
+    let current = this.head;
+    while (current !== null) {
+      length += 1;
+      current = current.next;
+    }
+    return length;
   }
 
   /**
@@ -11,6 +25,9 @@ class LinkedList {
    */
   prepend(value) {
     this.head = new LinkedListNode(value, this.head);
+    if (this.tail === null) {
+      this.tail = this.head;
+    }
     return this;
   }
 
@@ -20,15 +37,13 @@ class LinkedList {
    */
   append(value) {
     const node = new LinkedListNode(value);
-    if (!this.head) {
+    if (this.tail === null) {
+      this.tail = node;
       this.head = node;
-      return this;
+    } else {
+      this.tail.next = node;
+      this.tail = node;
     }
-    let current = this.head;
-    while (current.next !== null) {
-      current = current.next;
-    }
-    current.next = node;
     return this;
   }
 
@@ -46,14 +61,23 @@ class LinkedList {
       prev = current;
       current = current.next;
     }
+
     //  if value not found.
     if (current === null) {
       return null;
     }
+
     // if value is head.
-    if (prev === null) {
+    if (current === this.head) {
       return this.removeHead();
     }
+
+    if (current === this.tail) {
+      this.tail = prev; // Moving tail to prev node.
+      this.tail.next = null; // Removing reference of old tail node.
+      return current;
+    }
+
     prev.next = current.next; // Moving pointer to next node.
     current.next = null; // Delete pointer from current.
     return current;
@@ -63,8 +87,12 @@ class LinkedList {
    * Move head to the next element to the head.
    */
   removeHead() {
-    if (!this.head) {
-      return null;
+    // Only single node or empty node.
+    if (this.head === this.tail) {
+      const node = this.head;
+      this.tail = null;
+      this.head = null;
+      return node;
     }
     const head = this.head; // head node
     this.head = this.head.next; // shift head to next node
@@ -76,21 +104,23 @@ class LinkedList {
    * Move tail to the prev element to the tail.
    */
   removeTail() {
-    if (!this.head) {
-      return null;
+    // Only single node or empty node.
+    if (this.head === this.tail) {
+      const node = this.tail;
+      this.tail = null;
+      this.head = null;
+      return node;
     }
+
+    // More than one node.
     let current = this.head;
-    let prev = null;
-    while (current.next !== null) {
-      prev = current;
+    while (current.next !== this.tail) {
       current = current.next;
     }
-    // if both head and tail are same.
-    if (prev === null) {
-      return this.removeHead();
-    }
-    prev.next = null; // remove pointer to tail.
-    return current;
+    const node = this.tail;
+    this.tail = current;
+    this.tail.next = null; // Removing reference.
+    return node;
   }
 
   /**
