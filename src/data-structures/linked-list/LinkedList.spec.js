@@ -6,11 +6,20 @@ const LinkedList = require('./LinkedList');
 describe('LinkedList', () => {
   it('should create an empty linked list', () => {
     const list = new LinkedList();
+    expect(list.length).to.equal(0);
     expect(list.toArray()).to.deep.equal([]);
     expect(list.toString()).to.equal('');
     expect(list.head).to.equal(null);
     expect(list.removeHead()).to.equal(null);
     expect(list.removeTail()).to.equal(null);
+  });
+
+  it('should return length of the list', () => {
+    const list = new LinkedList();
+    expect(list.length).to.equal(0);
+    const items = [1, 2, 3];
+    items.forEach((n) => list.append(n));
+    expect(list.length).to.equal(items.length);
   });
 
   describe('LinkedList.prepend', () => {
@@ -65,6 +74,15 @@ describe('LinkedList', () => {
       const deletedNode = list.remove(40);
       expect(deletedNode.toString()).to.deep.equal('40');
       expect(list.toString()).to.equal('');
+    });
+
+    it('should return tail node cause value is matching to tail', () => {
+      const list = new LinkedList();
+      list.append(10);
+      list.prepend(20);
+      const deletedNode = list.remove(10);
+      expect(deletedNode).to.deep.equal({ value: 10, next: null });
+      expect(list.length).to.equal(1);
     });
   });
 
