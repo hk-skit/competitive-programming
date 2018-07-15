@@ -1,7 +1,32 @@
 const BinaryTreeNode = require('./BinaryTreeNode');
+const Queue = require('../../queue/Queue');
 class BinaryTree {
   constructor() {
     this.root = null;
+  }
+
+  /**
+   * Traverse a tree in Level order that is BFS.
+   * @return {Array}
+   */
+  traverseInLevelOrder() {
+    if (this.root === null) {
+      return [];
+    }
+    const array = [];
+    const queue = new Queue();
+    queue.enqueue(this.root);
+    while (!queue.isEmpty()) {
+      const node = queue.dequeue();
+      array.push(node.value);
+      if (node.left !== null) {
+        queue.enqueue(node.left);
+      }
+      if (node.right !== null) {
+        queue.enqueue(node.right);
+      }
+    }
+    return array;
   }
 
   /**
@@ -14,20 +39,20 @@ class BinaryTree {
       this.root = node;
       return this;
     }
-    // TODO: Use Queue class here when it's available.
-    const queue = [this.root];
-    while (queue.length) {
-      const _node = queue.shift();
+    const queue = new Queue();
+    queue.enqueue(this.root);
+    while (!queue.isEmpty()) {
+      const _node = queue.dequeue();
       if (_node.left === null) {
         _node.setLeft(node);
         break;
       }
-      queue.push(_node.left);
+      queue.enqueue(_node.left);
       if (_node.right === null) {
         _node.setRight(node);
         break;
       }
-      queue.push(_node.right);
+      queue.enqueue(_node.right);
     }
     return this;
   }
