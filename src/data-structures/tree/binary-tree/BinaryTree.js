@@ -6,6 +6,17 @@ class BinaryTree {
   }
 
   /**
+   * Size of a tree is the number of elements present in the tree.
+   *@return {number} number of nodes in tree.
+   */
+  size(node = this.root) {
+    if (node === null) {
+      return 0;
+    }
+    return this.size(node.left) + 1 + this.size(node.right);
+  }
+
+  /**
    * Traverse a tree in Level order that is BFS.
    * @return {Array}
    */
@@ -59,30 +70,6 @@ class BinaryTree {
 
   traverseInOrder() {
     return this.root.traverseInOrder();
-  }
-
-  /**
-   * Creates a binary tree from it's array representation.
-   * https://www.geeksforgeeks.org/binary-tree-array-implementation/
-   * @param {any} array
-   */
-  static fromArrayRepresentation(array) {
-    if (!array.length) {
-      return null;
-    }
-    const nodes = array.map((value) => new BinaryTreeNode(value));
-    nodes.forEach((node, index) => {
-      const doubleOfIndex = 2 * index;
-
-      // Left node -> (2 * i) + 1.
-      const lIndex = doubleOfIndex + 1;
-      node.left = lIndex < nodes.length ? nodes[lIndex] : null;
-
-      // Right node -> (2 * i) + 2.
-      const rIndex = doubleOfIndex + 2;
-      node.right = rIndex < nodes.length ? nodes[rIndex] : null;
-    });
-    return nodes[0];
   }
 }
 
