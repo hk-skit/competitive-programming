@@ -156,6 +156,17 @@ class LinkedList {
       .map((node) => node.toString(callback))
       .toString();
   }
+
+  /**
+   * Converts an array/paramters to linked list.
+   * @param {any} array
+   */
+  static toLinkedList(...array) {
+    return array.reduce((list, item) => {
+      list.append(item);
+      return list;
+    }, new LinkedList());
+  }
 }
 
 module.exports = LinkedList;
