@@ -68,8 +68,31 @@ class BinaryTree {
     return this;
   }
 
+  /**
+   *
+   *
+   * @returns {Array}
+   */
   traverseInOrder() {
-    return this.root.traverseInOrder();
+    return this.root ? this.root.traverseInOrder() : [];
+  }
+
+  /**
+   *
+   *
+   * @returns {Array}
+   */
+  traversePreOrder() {
+    return this.root ? this.root.traversePreOrder() : [];
+  }
+
+  /**
+   *
+   *
+   * @returns {Array}
+   */
+  traversePostOrder() {
+    return this.root ? this.root.traversePostOrder() : [];
   }
 }
 

@@ -1,5 +1,5 @@
 class BinaryTreeNode {
-  constructor(value = null) {
+  constructor(value) {
     this.left = null;
     this.right = null;
     this.value = value;
@@ -26,7 +26,9 @@ class BinaryTreeNode {
   }
 
   /**
-   * Traverse tree in order and return elements as an array.
+   *
+   *
+   * @returns {Array}
    */
   traverseInOrder() {
     const values = [];
@@ -37,6 +39,40 @@ class BinaryTreeNode {
     if (this.right) {
       values.push(...this.right.traverseInOrder());
     }
+    return values;
+  }
+
+  /**
+   *
+   *
+   * @returns {Array}
+   */
+  traversePreOrder() {
+    const values = [];
+    values.push(this.value);
+    if (this.left) {
+      values.push(...this.left.traversePreOrder());
+    }
+    if (this.right) {
+      values.push(...this.right.traversePreOrder());
+    }
+    return values;
+  }
+
+  /**
+   *
+   *
+   * @returns {Array}
+   */
+  traversePostOrder() {
+    const values = [];
+    if (this.left) {
+      values.push(...this.left.traversePostOrder());
+    }
+    if (this.right) {
+      values.push(...this.right.traversePostOrder());
+    }
+    values.push(this.value);
     return values;
   }
 }

@@ -10,6 +10,7 @@ describe('BinaryTreeNode', () => {
     expect(node.left).to.equal(null);
     expect(node.right).to.equal(null);
   });
+
   describe('BinaryTreeNode.traverseInorder', () => {
     it('should traverse in order where there is no child', () => {
       const node = new BinaryTreeNode(10);
