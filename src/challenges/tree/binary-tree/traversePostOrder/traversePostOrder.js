@@ -1,6 +1,47 @@
 const Stack = require('../../../../data-structures/stack');
+/**
+ * Iteratively traverses a binary tree in pre order using a single
+ * stack. https://articles.leetcode.com/binary-tree-post-order-traversal/
+ * @param {*} root
+ */
 const traversePostOrder = (root) => {
-  // TODO: Implement using single stack.
+  const values = [];
+  if (root === null) {
+    return values;
+  }
+
+  const stack = new Stack();
+
+  // Previous node to keep track of previously traversed node. It
+  // will help us to detect whether we are moving up or down in a tree.
+  let prev = null;
+
+  stack.push(root);
+
+  while (!stack.isEmpty()) {
+    const current = stack.peek();
+    if (prev === null || prev.left === current || prev.right === current) {
+      // previous is parent of current node, it means we are traverse downwards
+      // in a tree.
+      if (current.left !== null) {
+        stack.push(current.left);
+      } else if (current.right !== null) {
+        stack.push(current.right);
+      }
+    } else if (current.left === prev) {
+      // we are moving up from left.
+      if (current.right !== null) {
+        stack.push(current.right);
+      }
+    } else {
+      values.push(current.value);
+      stack.pop();
+    }
+
+    prev = current;
+  }
+
+  return values;
 };
 
 /**
@@ -13,6 +54,7 @@ const traversePostOrder2 = (root) => {
   if (root === null) {
     return values;
   }
+
   const stack = new Stack();
   const auxStack = new Stack();
   stack.push(root);
@@ -32,4 +74,4 @@ const traversePostOrder2 = (root) => {
   return values;
 };
 
-module.exports = traversePostOrder2;
+module.exports = traversePostOrder;
