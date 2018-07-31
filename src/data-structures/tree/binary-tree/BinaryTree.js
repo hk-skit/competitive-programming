@@ -16,6 +16,10 @@ class BinaryTree {
     return this.size(node.left) + 1 + this.size(node.right);
   }
 
+  static isLeafNode(node) {
+    return !!node && !node.left && !node.right;
+  }
+
   /**
    * Traverse a tree in Level order that is BFS.
    * @return {Array}

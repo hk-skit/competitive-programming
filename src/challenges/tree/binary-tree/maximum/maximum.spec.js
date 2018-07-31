@@ -1,7 +1,7 @@
 const should = require('should');
 const { expect } = require('chai');
 const sinon = require('sinon');
-const fromArrayRepresentation = require('../fromArrayRepresentation/fromArrayRepresentation');
+const fromArrayRepresentation = require('../from-array-representation/fromArrayRepresentation');
 const maximum = require('./maximum');
 
 describe('BinaryTree.maximum', () => {
