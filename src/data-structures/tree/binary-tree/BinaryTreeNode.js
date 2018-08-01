@@ -6,6 +6,18 @@ class BinaryTreeNode {
   }
 
   /**
+   * Height of a node is considered as maximum depth. Maximum number of nodes from root to leaf node.
+   * Height of root node is considered as 1.
+   * Note: In some books, height is defined as longest path i.e. number of edges. In that case height
+   * of root will be zero. Below code does not consider edges.
+   */
+  get height() {
+    const lHeight = this.left !== null ? this.left.height : 0;
+    const rHeight = this.right !== null ? this.right.height : 0;
+    return Math.max(lHeight, rHeight) + 1; // +1 for height of current node.
+  }
+
+  /**
    *
    * @param {BinaryTreeNode} node
    */

@@ -16,6 +16,13 @@ class BinaryTree {
     return this.size(node.left) + 1 + this.size(node.right);
   }
 
+  /**
+   * Height of the tree.
+   */
+  height() {
+    return this.root !== null ? this.root.height : 0;
+  }
+
   static isLeafNode(node) {
     return !!node && !node.left && !node.right;
   }

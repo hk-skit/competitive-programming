@@ -30,6 +30,54 @@ describe('BinaryTree', () => {
     });
   });
 
+  describe('BinaryTree.height', () => {
+    it('should return zero cause tree is empty', () => {
+      const tree = new BinaryTree();
+      expect(tree.height()).to.equal(0);
+    });
+
+    it('should return the height of the tree', () => {
+      const tree = new BinaryTree();
+      tree.insertInLevelOrder(10);
+      tree.insertInLevelOrder(20);
+      tree.insertInLevelOrder(30);
+      /**
+       *     10
+       *    /   \
+       *  20     30
+       */
+      expect(tree.height()).to.equal(2);
+    });
+
+    it('should return the height of the tree when tree is sparse', () => {
+      const tree = new BinaryTree();
+      tree.insertInLevelOrder(10);
+      tree.insertInLevelOrder(20);
+      /**
+       *     10
+       *    /
+       *  20
+       */
+      expect(tree.height()).to.equal(2);
+    });
+
+    it('should return the height of the tree', () => {
+      const tree = new BinaryTree();
+      tree.insertInLevelOrder(10);
+      tree.insertInLevelOrder(20);
+      tree.insertInLevelOrder(30);
+      tree.insertInLevelOrder(40);
+      /**
+       *       10
+       *      /   \
+       *    20     30
+       *   /
+       * 40
+       */
+      expect(tree.height()).to.equal(3);
+    });
+  });
+
   describe('BinaryTree.insertInLevelOrder', () => {
     it('should insert node in empty tree', () => {
       const tree = new BinaryTree();
