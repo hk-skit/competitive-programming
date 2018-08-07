@@ -91,20 +91,7 @@ class BinaryTree {
     if (this.root === null) {
       return [];
     }
-    const array = [];
-    const queue = new Queue();
-    queue.enqueue(this.root);
-    while (!queue.isEmpty()) {
-      const node = queue.dequeue();
-      array.push(node.value);
-      if (node.left !== null) {
-        queue.enqueue(node.left);
-      }
-      if (node.right !== null) {
-        queue.enqueue(node.right);
-      }
-    }
-    return array;
+    return this.root.traverseLevelOrder();
   }
 
   /**

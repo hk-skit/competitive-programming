@@ -1,3 +1,4 @@
+const Queue = require('../../queue/Queue');
 class BinaryTreeNode {
   constructor(value) {
     this.left = null;
@@ -35,6 +36,27 @@ class BinaryTreeNode {
     // TODO: Add parents logic when we add parent reference.
     this.right = node;
     return this;
+  }
+
+  /**
+   * Traverse a tree in Level order that is BFS.
+   * @return {Array}
+   */
+  traverseLevelOrder() {
+    const array = [];
+    const queue = new Queue();
+    queue.enqueue(this);
+    while (!queue.isEmpty()) {
+      const node = queue.dequeue();
+      array.push(node.value);
+      if (node.left !== null) {
+        queue.enqueue(node.left);
+      }
+      if (node.right !== null) {
+        queue.enqueue(node.right);
+      }
+    }
+    return array;
   }
 
   /**
