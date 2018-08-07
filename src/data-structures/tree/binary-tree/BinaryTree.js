@@ -47,6 +47,21 @@ class BinaryTree {
   }
 
   /**
+   * Crreate a new binary tree which is invert of tree whose root is passes as parameter.
+   */
+  static invert(root) {
+    if (root === null) {
+      return null;
+    }
+    const left = BinaryTree.invert(root.right);
+    const right = BinaryTree.invert(root.left);
+    const newRoot = new BinaryTreeNode(root.value);
+    newRoot.setLeft(left);
+    newRoot.setRight(right);
+    return newRoot;
+  }
+
+  /**
    * Size of a tree is the number of elements present in the tree.
    *@return {number} number of nodes in tree.
    */
