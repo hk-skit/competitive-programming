@@ -11,11 +11,33 @@ class BinaryTreeNode {
    * Height of root node is considered as 1.
    * Note: In some books, height is defined as longest path i.e. number of edges. In that case height
    * of root will be zero. Below code does not consider edges.
+   *
+   * @readonly
+   * @memberof BinaryTreeNode
    */
   get height() {
     const lHeight = this.left !== null ? this.left.height : 0;
     const rHeight = this.right !== null ? this.right.height : 0;
     return Math.max(lHeight, rHeight) + 1; // +1 for height of current node.
+  }
+
+  /**
+   * Returns the minium height of the node.
+   *
+   * @returns height in number.
+   * @memberof BinaryTreeNode
+   */
+  minHeight() {
+    if (this.isLeaf()) {
+      return 1;
+    }
+    if (this.left === null) {
+      return this.right.minHeight() + 1;
+    }
+    if (this.right === null) {
+      return this.left.minHeight() + 1;
+    }
+    return Math.min(this.left.minHeight(), this.right.minHeight()) + 1;
   }
 
   /**
@@ -26,6 +48,27 @@ class BinaryTreeNode {
    */
   isLeaf() {
     return this.left === null && this.right === null;
+  }
+
+  /**
+   * Checks if tree node is balanced or not.
+   *
+   * @returns true if node is balanced.
+   * @memberof BinaryTreeNode
+   */
+  isBalanced() {
+    if (this.isLeaf()) {
+      return true;
+    }
+
+    if (this.left === null) {
+      return this.right.height <= 1;
+    }
+
+    if (this.right === null) {
+      return this.left.height <= 1;
+    }
+    return Math.abs(this.left.height - this.right.height) <= 1;
   }
 
   /**
