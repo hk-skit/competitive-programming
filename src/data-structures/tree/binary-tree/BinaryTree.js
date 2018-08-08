@@ -47,7 +47,7 @@ class BinaryTree {
   }
 
   /**
-   * Crreate a new binary tree which is invert of tree whose root is passes as parameter.
+   * Create a new binary tree which is invert of tree whose root is passes as parameter.
    */
   static invert(root) {
     if (root === null) {

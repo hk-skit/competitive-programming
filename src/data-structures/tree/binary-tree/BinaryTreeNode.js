@@ -39,6 +39,28 @@ class BinaryTreeNode {
   }
 
   /**
+   * Returns true if node contains value.
+   * @param {*} value
+   */
+  contains(value) {
+    const queue = new Queue();
+    queue.enqueue(this);
+    while (!queue.isEmpty()) {
+      const node = queue.dequeue();
+      if (node.value === value) {
+        return true;
+      }
+      if (node.left !== null) {
+        queue.enqueue(node.left);
+      }
+      if (node.right !== null) {
+        queue.enqueue(node.right);
+      }
+    }
+    return false;
+  }
+
+  /**
    * Traverse a tree in Level order that is BFS.
    * @return {Array}
    */
