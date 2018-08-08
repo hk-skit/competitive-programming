@@ -78,6 +78,68 @@ describe('BinaryTree', () => {
     });
   });
 
+  describe('BinaryTree.contains', () => {
+    it('should return false cause tree is empty', () => {
+      const tree = new BinaryTree();
+      expect(tree.contains(23)).to.equal(false);
+    });
+
+    it('should return true cause value is present', () => {
+      const data = [
+        {
+          tree: [1],
+          value: 1
+        },
+        {
+          tree: [1, 2],
+          value: 2
+        },
+        {
+          tree: [1, 2, 3, 4, 5],
+          value: 3
+        }
+      ].map((item) => {
+        return {
+          ...item,
+          tree: item.tree.reduce((tree, value) => {
+            tree.insertInLevelOrder(value);
+            return tree;
+          }, new BinaryTree())
+        };
+      });
+      data.forEach(({ tree, value }) =>
+        expect(tree.contains(value)).to.equal(true)
+      );
+    });
+    it('should return false cause value is not present', () => {
+      const data = [
+        {
+          tree: [1],
+          value: 0
+        },
+        {
+          tree: [1, 2],
+          value: null
+        },
+        {
+          tree: [1, 2, 3, 4, 5],
+          value: 7
+        }
+      ].map((item) => {
+        return {
+          ...item,
+          tree: item.tree.reduce((tree, value) => {
+            tree.insertInLevelOrder(value);
+            return tree;
+          }, new BinaryTree())
+        };
+      });
+      data.forEach(({ tree, value }) =>
+        expect(tree.contains(value)).to.equal(false)
+      );
+    });
+  });
+
   describe('BinaryTree.insertInLevelOrder', () => {
     it('should insert node in empty tree', () => {
       const tree = new BinaryTree();
@@ -371,6 +433,110 @@ describe('BinaryTree', () => {
       tree.root.right.setLeft(new BinaryTreeNode(15));
       tree.root.right.setRight(new BinaryTreeNode(8));
       expect(tree.traversePostOrder()).to.deep.equal([7, 11, 15, 8, 9, 10]);
+    });
+  });
+
+  describe('BinaryTree.isMirror', () => {
+    it('should return true cause both trees are empty', () => {
+      const treeA = new BinaryTree();
+      const treeB = new BinaryTree();
+      expect(BinaryTree.isMirror(treeA.root, treeB.root)).to.equal(true);
+    });
+
+    it('should return false cause one of the trees is empty', () => {
+      const treeA = new BinaryTree();
+      const treeB = new BinaryTree();
+      treeA.insertInLevelOrder(10);
+      expect(BinaryTree.isMirror(treeA.root, treeB.root)).to.equal(false);
+      expect(BinaryTree.isMirror(treeB.root, treeA.root)).to.equal(false);
+    });
+
+    it('should return true cause trees with only root nodes are.', () => {
+      const treeA = new BinaryTree();
+      const treeB = new BinaryTree();
+      treeA.insertInLevelOrder(10);
+      treeB.insertInLevelOrder(10);
+      expect(BinaryTree.isMirror(treeA.root, treeB.root)).to.equal(true);
+    });
+
+    it('should return true cause trees are mirror', () => {
+      const treeA = new BinaryTree();
+      const treeB = new BinaryTree();
+      treeA.root = BinaryTreeNode.toBinaryTreeNode(10);
+      treeB.root = BinaryTreeNode.toBinaryTreeNode(10);
+      const node = BinaryTreeNode.toBinaryTreeNode(20);
+      treeA.root.setLeft(node);
+      treeB.root.setRight(node);
+      expect(BinaryTree.isMirror(treeA.root, treeB.root)).to.equal(true);
+    });
+    it('should return false cause trees are not mirror', () => {
+      const treeA = new BinaryTree();
+      const treeB = new BinaryTree();
+      treeA.root = BinaryTreeNode.toBinaryTreeNode(10);
+      treeB.root = BinaryTreeNode.toBinaryTreeNode(20);
+      const node = BinaryTreeNode.toBinaryTreeNode(20);
+      treeA.root.setLeft(node);
+      treeB.root.setRight(node);
+      expect(BinaryTree.isMirror(treeA.root, treeB.root)).to.equal(false);
+    });
+  });
+
+  describe('BinaryTree.isSymmetric', () => {
+    it('should return true cause tree is empty', () => {
+      const tree = new BinaryTree();
+      expect(BinaryTree.isSymmetric(tree.root)).to.equal(true);
+    });
+
+    it('should return true cause tree has only root node', () => {
+      const tree = new BinaryTree();
+      tree.insertInLevelOrder(10);
+      expect(BinaryTree.isSymmetric(tree.root)).to.equal(true);
+    });
+
+    it('should return true cause tree is symmetric', () => {
+      const tree = new BinaryTree();
+      tree.insertInLevelOrder(10);
+      tree.insertInLevelOrder(20);
+      tree.insertInLevelOrder(20);
+      expect(BinaryTree.isSymmetric(tree.root)).to.equal(true);
+    });
+
+    it('should return false cause trees are not symmetric', () => {
+      const data = [[1, 2, 3], [1, 2], [1, 2, 3, 4, 5]].map((array) =>
+        array.reduce((tree, value) => {
+          tree.insertInLevelOrder(value);
+          return tree;
+        }, new BinaryTree())
+      );
+      data.forEach((tree) =>
+        expect(BinaryTree.isSymmetric(tree.root)).to.equal(false)
+      );
+    });
+  });
+
+  describe('BinaryTree.invert', () => {
+    it('should return null cause tree is empty', () => {
+      expect(BinaryTree.invert(null)).to.equal(null);
+    });
+
+    it('should invert tree with only root node', () => {
+      const tree = new BinaryTree();
+      tree.insertInLevelOrder(10);
+      const mirror = BinaryTree.invert(tree.root);
+      expect(BinaryTree.isMirror(mirror, tree.root)).to.equal(true);
+    });
+
+    it('should invert tree with children', () => {
+      const data = [[1, 2, 3], [1, 2], [1, 2, 3, 4, 5]].map((array) =>
+        array.reduce((tree, value) => {
+          tree.insertInLevelOrder(value);
+          return tree;
+        }, new BinaryTree())
+      );
+      data.forEach((tree) => {
+        const mirror = BinaryTree.invert(tree.root);
+        expect(BinaryTree.isMirror(mirror, tree.root)).to.equal(true);
+      });
     });
   });
 });

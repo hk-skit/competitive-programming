@@ -6,17 +6,13 @@ class BinaryTree {
   }
 
   /**
-   * True if supplied node is leaf node.
-   * @param {*} node
-   */
-  static isLeaf(node) {
-    return !!node && node.left === null && node.right === null;
-  }
-
-  /**
    * Tells whether both nodes are mirror of each other or not.
-   * @param {*} rootA
-   * @param {*} rootB
+   *
+   * @static
+   * @param {BinaryTreeNode} rootA
+   * @param {BinaryTreeNode} rootB
+   * @returns true if both tree are mirror of each other.
+   * @memberof BinaryTree
    */
   static isMirror(rootA, rootB) {
     if (rootA === null && rootB === null) {
@@ -26,8 +22,8 @@ class BinaryTree {
       // one of the root is null
       return false;
     }
-    if (rootA.value === rootB.value) {
-      return true;
+    if (rootA.value !== rootB.value) {
+      return false;
     }
     return (
       BinaryTree.isMirror(rootA.left, rootB.right) &&
@@ -40,7 +36,7 @@ class BinaryTree {
    * @param {*} root
    */
   static isSymmetric(root) {
-    if (root === null || BinaryTree.isLeaf(root)) {
+    if (root === null || root.isLeaf()) {
       return true;
     }
     return BinaryTree.isMirror(root, root);
@@ -61,6 +57,10 @@ class BinaryTree {
     return newRoot;
   }
 
+  contains(value) {
+    return this.root ? this.root.contains(value) : false;
+  }
+
   /**
    * Size of a tree is the number of elements present in the tree.
    *@return {number} number of nodes in tree.
@@ -77,10 +77,6 @@ class BinaryTree {
    */
   height() {
     return this.root !== null ? this.root.height : 0;
-  }
-
-  static isLeafNode(node) {
-    return !!node && !node.left && !node.right;
   }
 
   /**

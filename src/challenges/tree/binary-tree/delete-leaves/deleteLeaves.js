@@ -14,7 +14,7 @@ const deleteLeaves = (root, x) => {
   root.left = deleteLeaves(root.left, x);
   root.right = deleteLeaves(root.right, x);
 
-  if (root.value === x && BinaryTree.isLeafNode(root)) {
+  if (root.value === x && root.isLeaf()) {
     return null;
   }
   return root;

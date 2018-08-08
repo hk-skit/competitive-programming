@@ -19,6 +19,28 @@ class BinaryTreeNode {
   }
 
   /**
+   * Returns true if node is leaf node.
+   *
+   * @returns boolean
+   * @memberof BinaryTreeNode
+   */
+  isLeaf() {
+    return this.left === null && this.right === null;
+  }
+
+  /**
+   * Converts the value to binary tree node.
+   *
+   * @static
+   * @param {*} value
+   * @returns BinaryTreeNode.
+   * @memberof BinaryTreeNode
+   */
+  static toBinaryTreeNode(value) {
+    return new BinaryTreeNode(value);
+  }
+
+  /**
    *
    * @param {BinaryTreeNode} node
    */

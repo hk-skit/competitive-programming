@@ -11,7 +11,7 @@ const hasPathSumRecursive = (root, sum) => {
   if (root === null) {
     return false;
   }
-  if (BinaryTree.isLeaf(root) && root.value === sum) {
+  if (root.isLeaf() && root.value === sum) {
     return true;
   }
   return (
@@ -39,7 +39,7 @@ const hasPathSum = (root, sum) => {
   while (!queue.isEmpty()) {
     const current = queue.dequeue();
     const sumValue = sums.dequeue();
-    if (BinaryTree.isLeaf(current) && current.value === sumValue) {
+    if (current.isLeaf() && current.value === sumValue) {
       return true;
     }
     if (current.left) {
