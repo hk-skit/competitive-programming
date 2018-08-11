@@ -34,7 +34,29 @@ class BinaryTreeSearchNode extends BinaryTreeNode {
     return !!node && node.contains(value);
   }
 
-  insert(value) {}
+  add(value) {
+    if (value === this.value) {
+      // we do not allow duplicates in our tree.
+      return null;
+    }
+
+    if (this.value < value) {
+      // Add to the right.
+      if (this.right) {
+        return this.right.add(value);
+      }
+      this.setRight(new BinaryTreeSearchNode(value));
+      return;
+    }
+
+    if (this.value > value) {
+      // Add to the left.
+      if (this.left) {
+        return this.left.add(value);
+      }
+      this.setLeft(new BinaryTreeSearchNode(value));
+    }
+  }
 }
 
 module.exports = BinaryTreeSearchNode;
