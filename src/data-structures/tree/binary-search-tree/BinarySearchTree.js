@@ -3,6 +3,7 @@ const BinaryTree = require('../binary-tree/BinaryTree');
 export class BinarySearchTree extends BinaryTree {
   constructor() {
     super();
+
     // Insert in level order function doesn't make sense in binary search tree.
     // Since the way elements are inserted/remove from binary search tree
     // different from binary tree.
