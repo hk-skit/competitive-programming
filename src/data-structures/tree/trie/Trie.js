@@ -1,6 +1,6 @@
 const TrieNode = require('./TrieNode');
 
-export class Trie {
+class Trie {
   constructor() {
     this.root = new TrieNode();
   }
@@ -17,13 +17,13 @@ export class Trie {
       const letter = word.charAt(index);
       if (!current.children.has(letter)) {
         const node = new TrieNode();
-        current.set(letter, node);
+        current.children.set(letter, node);
         current = node;
       } else {
         current = current.children.get(letter);
       }
     }
-    current.isEnd = true;
+    current.isCompleteWord = true;
   }
 
   /**
@@ -42,7 +42,7 @@ export class Trie {
       }
       current = node;
     }
-    return current.isEnd;
+    return current.isCompleteWord;
   }
 
   /**
@@ -53,8 +53,8 @@ export class Trie {
    * @returns
    * @memberof Trie
    */
-  getWords(node = this.node, prefix = '') {
-    const words = node.isLeaf() && prefix !== '' ? [prefix] : [];
+  getWords(node = this.root, prefix = '') {
+    const words = node.isCompleteWord && prefix !== '' ? [prefix] : [];
     node.children.forEach((child, letter) => {
       words.push(...this.getWords(child, `${prefix}${letter}`));
     });
@@ -68,10 +68,10 @@ export class Trie {
    * @returns
    * @memberof Trie
    */
-  getWordsBy(prefix) {
+  suggestWords(prefix) {
     const words = [];
     let current = this.root;
-    for (let index = 0; index < word.length; index += 1) {
+    for (let index = 0; index < prefix.length; index += 1) {
       const node = current.children.get(prefix.charAt(index));
       if (!node) {
         return [];
@@ -82,3 +82,5 @@ export class Trie {
     return words;
   }
 }
+
+module.exports = Trie;

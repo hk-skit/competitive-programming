@@ -4,7 +4,7 @@
  * @export
  * @class TrieNode
  */
-export class TrieNode {
+class TrieNode {
   /**
    * Creates an instance of TrieNode.
    * @memberof TrieNode
@@ -33,14 +33,6 @@ export class TrieNode {
   set isCompleteWord(value) {
     this._isCompleteWord = value;
   }
-
-  /**
-   *
-   *
-   * @returns
-   * @memberof TrieNode
-   */
-  isLeaf() {
-    return this.children.size === 0;
-  }
 }
+
+module.exports = TrieNode;
