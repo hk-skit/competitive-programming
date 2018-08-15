@@ -67,18 +67,22 @@ class BinaryHeap {
     const _heapify = (index = 0) => {
       let lIndex = this.getLeftChildIndex(index);
       let rIndex = this.getRightChildIndex(index);
-      let newIndex = index;
-      if (lIndex < this.size && comparator(this.get(index), this.get(lIndex))) {
-        newIndex = lIndex;
-      } else if (
-        rIndex < this.size &&
-        comparator(this.get(index), this.get(rIndex))
+      let nIndex = index;
+      if (
+        lIndex < this.size &&
+        comparator(this.get(nIndex), this.get(lIndex))
       ) {
-        newIndex = rIndex;
+        nIndex = lIndex;
       }
-      if (newIndex !== index) {
-        this.swap(index, newIndex);
-        this.heapify(newIndex);
+      if (
+        rIndex < this.size &&
+        comparator(this.get(nIndex), this.get(rIndex))
+      ) {
+        nIndex = rIndex;
+      }
+      if (nIndex !== index) {
+        this.swap(index, nIndex);
+        this.heapify(nIndex);
       }
     };
     return _heapify;
