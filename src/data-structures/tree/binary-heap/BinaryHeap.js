@@ -13,11 +13,21 @@ class BinaryHeap {
    * @memberof BinaryHeap
    */
   get peek() {
-    return this.size ? this.values[0] : null;
+    return this.size ? this.get(0) : null;
   }
 
   get size() {
     return this.values.length;
+  }
+
+  /**
+   * Returns items at @param index.
+   *
+   * @param {number} index
+   * @memberof BinaryHeap
+   */
+  get(index) {
+    return this.values[index];
   }
 
   /**
@@ -39,7 +49,7 @@ class BinaryHeap {
     this.values.push(value);
     let index = this.size - 1;
     let pIndex = this.getParentIndex(index);
-    while (pIndex >= 0 && comparator(this.values[pIndex])) {
+    while (pIndex >= 0 && comparator(this.get(pIndex))) {
       this.swap(pIndex, index);
       index = pIndex;
       pIndex = this.getParentIndex(pIndex);
@@ -47,39 +57,41 @@ class BinaryHeap {
   }
 
   /**
-   * Returns parent of the node at @param index.
    *
-   * @param {*} index
+   *
+   * @param {*} comparator
    * @returns
    * @memberof BinaryHeap
    */
-  getParent(index) {
-    index = this.getParentIndex(index);
-    return index >= 0 ? this.values[index] : null;
+  heapify(comparator) {
+    const _heapify = (index = 0) => {
+      let lIndex = this.getLeftChildIndex(index);
+      let rIndex = this.getRightChildIndex(index);
+      let newIndex = index;
+      if (lIndex < this.size && comparator(this.get(index), this.get(lIndex))) {
+        newIndex = lIndex;
+      } else if (
+        rIndex < this.size &&
+        comparator(this.get(index), this.get(rIndex))
+      ) {
+        newIndex = rIndex;
+      }
+      if (newIndex !== index) {
+        this.swap(index, newIndex);
+        this.heapify(newIndex);
+      }
+    };
+    return _heapify;
   }
 
-  /**
-   * Returns left child of node at @param index.
-   *
-   * @param {*} index
-   * @returns
-   * @memberof BinaryHeap
-   */
-  getLeftChild(index) {
-    index = this.getLeftChildIndex(index);
-    return this.size <= index ? null : this.values[index];
-  }
-
-  /**
-   * Returns right child of the node at @param index.
-   *
-   * @param {*} index
-   * @returns
-   * @memberof BinaryHeap
-   */
-  getRightChild(index) {
-    index = this.getRightChildIndex(index);
-    return this.size <= index ? null : this.values[index];
+  adjustKey(index, value, comparator) {
+    this.values[index] = value;
+    let pIndex = this.getParentIndex(index);
+    while (index > 0 && comparator(this.get(pIndex))) {
+      this.swap(index, pIndex);
+      index = pIndex;
+      pIndex = this.getParentIndex(pIndex);
+    }
   }
 
   /**
@@ -95,17 +107,6 @@ class BinaryHeap {
   }
 
   /**
-   * Returns position of right child of node at @param index.
-   *
-   * @param {*} index
-   * @returns
-   * @memberof BinaryHeap
-   */
-  getRightChildIndex(index) {
-    return 2 * index + 2;
-  }
-
-  /**
    * Returns position of left child of node at @param index.
    *
    * @param {*} index
@@ -114,6 +115,17 @@ class BinaryHeap {
    */
   getLeftChildIndex(index) {
     return 2 * index + 1;
+  }
+
+  /**
+   * Returns position of right child of node at @param index.
+   *
+   * @param {*} index
+   * @returns
+   * @memberof BinaryHeap
+   */
+  getRightChildIndex(index) {
+    return 2 * index + 2;
   }
 }
 
