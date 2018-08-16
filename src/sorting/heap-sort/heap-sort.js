@@ -27,7 +27,8 @@ const maxHeapify = (array, size, index) => {
 };
 
 /**
- * Applies heap sort to supplied @param array.
+ * Applies heap sort to supplied @param array. It sorts elements in ascending
+ * order.
  * https://www.geeksforgeeks.org/heap-sort/
  * @param {*} array
  */
