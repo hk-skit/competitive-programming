@@ -8,18 +8,30 @@ const fromArrayRepresentation = (array) => {
   if (!array.length) {
     return null;
   }
-  const nodes = array.map((value) => new BinaryTreeNode(value));
+  const nodes = array.map(
+    (value) => (value !== null ? new BinaryTreeNode(value) : null)
+  );
+
   nodes.forEach((node, index) => {
+    if (node === null) {
+      return;
+    }
+
     const doubleOfIndex = 2 * index;
 
     // Left node -> (2 * i) + 1.
     const lIndex = doubleOfIndex + 1;
-    node.left = lIndex < nodes.length ? nodes[lIndex] : null;
+    if (lIndex < array.length) {
+      node.setLeft(nodes[lIndex]);
+    }
 
     // Right node -> (2 * i) + 2.
     const rIndex = doubleOfIndex + 2;
-    node.right = rIndex < nodes.length ? nodes[rIndex] : null;
+    if (rIndex < array.length) {
+      node.setRight(nodes[rIndex]);
+    }
   });
+
   return nodes[0];
 };
 module.exports = fromArrayRepresentation;
