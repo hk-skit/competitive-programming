@@ -1,9 +1,11 @@
 const LinkedListNode = require('./LinkedListNode');
+const { compare } = require('../../utils');
 
 class LinkedList {
-  constructor() {
+  constructor(comparator = compare) {
     this.head = null;
     this.tail = null;
+    this.comparator = compare;
   }
 
   /**
@@ -51,11 +53,11 @@ class LinkedList {
    * Remove the item from linked list.
    * @param {*} value
    */
-  remove(value) {
+  remove(value, comparator = this.comparator) {
     let current = this.head;
     let prev = null;
     while (current !== null) {
-      if (current.value === value) {
+      if (comparator(current.value, value) === 0) {
         break;
       }
       prev = current;
@@ -127,10 +129,10 @@ class LinkedList {
    *
    * @param {*} value
    */
-  find(value) {
+  find(value, comparator = this.comparator) {
     let current = this.head;
     while (current !== null) {
-      if (current.value === value) {
+      if (comparator(current.value, value) === 0) {
         return current;
       }
       current = current.next;
