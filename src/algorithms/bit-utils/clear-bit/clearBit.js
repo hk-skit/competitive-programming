@@ -8,7 +8,7 @@
  * @returns
  */
 const clearBit = (number, position) => {
-  const mask = ~(number << position);
+  const mask = ~(1 << position);
   return number & mask;
 };
 

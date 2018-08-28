@@ -17,7 +17,6 @@ describe('largestElements', () => {
       return { input: { array, k }, output };
     });
     arrays.forEach(({ input, output }) => {
-      console.log(input, output);
       expect(kLargestElements(input.array, input.k)).to.deep.equal(output);
     });
   });

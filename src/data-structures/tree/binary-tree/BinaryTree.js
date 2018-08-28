@@ -49,11 +49,11 @@ class BinaryTree {
     if (root === null) {
       return null;
     }
-    const left = BinaryTree.invert(root.right);
-    const right = BinaryTree.invert(root.left);
+    const invertedLeft = BinaryTree.invert(root.right);
+    const invertedRight = BinaryTree.invert(root.left);
     const newRoot = new BinaryTreeNode(root.value);
-    newRoot.setLeft(left);
-    newRoot.setRight(right);
+    newRoot.setLeft(invertedLeft);
+    newRoot.setRight(invertedRight);
     return newRoot;
   }
 
