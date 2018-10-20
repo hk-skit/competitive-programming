@@ -4,9 +4,6 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 
 describe('getBit', () => {
-  it('should throw an error cause position is negative', () => {
-    expect(() => getBit(0, -1)).to.throw(Error);
-  });
   it('should have return bit at desired position', () => {
     const data = [
       {
