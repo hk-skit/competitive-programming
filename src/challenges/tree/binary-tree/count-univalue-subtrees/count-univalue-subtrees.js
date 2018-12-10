@@ -1,31 +1,43 @@
-const countUnivalueSubtrees = (root) => {
-  if (root === null) {
-    return 0;
-  }
+const countUniVal = (root) => {
 
-  const { left, right, value } = root;
+  let count = 0;
 
-  if (left === null && right === null) {
-    // Leaf node.
-    return 1;
-  }
-  const leftCount = countUnivalueSubtrees(root.left);
-  const rightCount = countUnivalueSubtrees(root.right);
-  if (left === null) {
-    if (right.value === value) {
-      return rightCount + 1;
+  const helperFn = (node) => {
+    if (node === null) {
+      return true;
     }
-    return rightCount;
-  }
 
-  if (right === null) {
-    if (left.value === value) {
-      return leftCount + 1;
-    }
-    return leftCount;
-  }
-  let total = rightCount + leftCount;
-  return value === left.value && value === right.value ? total + 1 : total;
+    const {
+      data,
+      left,
+      right
+    } = node;
+
+    const isLeftUni = helperFn(left);
+    const isRightUni = helperFn(right);
+
+    // If any of the subtrees is not singly, then this 
+    // cannot be singly. 
+    if (isLeftUni === false || isRightUni === false)
+      return false;
+
+    // If left subtree is singly and non-empty, but data 
+    // doesn't match 
+    if (left !== null && data !== left.data)
+      return false;
+
+    // Same for right subtree 
+    if (right !== null && data !== right.data)
+      return false;
+
+    // If none of the above conditions is true, then 
+    // tree rooted under root is single valued, increment 
+    // count and return true. 
+    count += 1;
+    return true;
+
+  };
+
+  helperFn(root);
+  return count;
 };
-
-module.exports = countUnivalueSubtrees;
